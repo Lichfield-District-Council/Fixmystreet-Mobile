@@ -1,0 +1,110 @@
+	body {
+	    font-family: "Gill Sans", "Gill Sans MT", Helvetica, Arial, sans-serif;
+	    margin: 0;
+	    padding: 0;
+	}
+
+	#header {
+		font-weight: bold;
+		border-bottom-width: 2px;
+		border-bottom-style: solid;
+		border-bottom-color: #5e552b;
+		margin:0;
+		padding: 10px;
+		background-color: #e3d595;
+		color: #5e552b;
+	}
+	
+	#my {
+		color: #4e451b;
+		background-color: #e3d595;
+	}
+	
+	a:link, a:visited {
+		color: #a94eaa;
+	}
+	
+	h1 {
+		font-size: 1.7em;
+		margin: 0;
+		padding: 0;
+		}
+		
+	h2 {
+		font-size: 1.4em;
+		margin-left: 7px;
+	}
+		
+	#content > p {
+		margin-left: 7px;
+		}
+		
+	form {
+		margin: 12px 0;
+		}
+		
+	#form p {
+		display: block;
+		width: 90%;
+		margin-left: 5px;
+		}
+		
+	#form label {
+		padding-bottom: 4px;
+		}
+		
+	input, textarea, select {
+		font-size: 1.2em;
+		padding: 3px;
+		width: 95%;
+		margin-top: 3px;
+		}
+		
+	#locator.loading, #locator.done, #fail.visible {
+		width: 95%;
+		margin-left: 5px;
+		padding: 2px;
+		}
+		
+	#locator.loading {
+		background: #FFF0A2 url('images/ajax-loader.gif') 97% 2px no-repeat;
+		}
+		
+	#locator.done {
+		background: #FFF0A2 url('images/accept.png') 97% 2px no-repeat;
+		}
+		
+	#fail {
+		background: #FFF0A2 url('images/exclamation.png') 97% 2px no-repeat;
+		}
+		
+	label.error {
+		color: #ff0000;
+		margin: 5px 0 0 5px;
+		}
+		
+	input.error {
+		background: transparent url('images/warning.gif') right no-repeat;
+		}
+		
+	#content {
+		margin: 0;
+		}
+		
+	.invisible {
+		display: none !important;
+		}
+		
+	#mobilefeature {
+		background-color: #FFF0A2;
+		padding: 7px 4px;
+		width: 90%;
+		margin: 8px auto;
+		font-size: 0.9em;
+		color: #000;
+		}
+		
+	#mobilefeature a {
+		color: #111;
+		text-decoration: none;
+		}
