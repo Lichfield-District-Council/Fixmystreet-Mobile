@@ -42,7 +42,26 @@ if ($_POST) {
 	<script src="js/geo.js"></script> 
 	<script src="js/jquery.js"></script> 
 	<script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAyUvSDBrAO4ePxVHcqp-K5hQ5esWtNpQWehF-Z9NQeJEFHAWuORRop2dJC86rRc7w8ebZJ0ODn4_-bQ" type="text/javascript"></script>
+	<script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;source=uds-msw&amp;key=ABQIAAAAyUvSDBrAO4ePxVHcqp-K5hQ5esWtNpQWehF-Z9NQeJEFHAWuORRop2dJC86rRc7w8ebZJ0ODn4_-bQ" type="text/javascript"></script>
+
 	<script>
+	
+	function loadMap(lat, lng) {
+	  if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map")); 
+        map.setCenter(new GLatLng(lat, lng), 17);
+        map.addControl(new GLargeMapControl());
+        var location = new GLatLng(lat, lng);
+        var marker = new GMarker(location, {draggable: true});
+        map.addOverlay(marker);
+        GEvent.addListener(marker, 'dragend', function(point) { 
+        	$("#lat").val(point.lat());
+			$("#lng").val(point.lng());
+        });
+      }		
+	}
+	
 	function lookupLocation() {
 		$("#locator").html("Fetching location...");
 		$("#locator").toggleClass("loading");
@@ -53,8 +72,12 @@ if ($_POST) {
 	function getLocation(loc) {
 		$("#locator").html("Location Fetched!");
 		$("#locator").toggleClass("done");
+		//$("#map").html("<img src='http://maps.google.com/maps/api/staticmap?center="+loc.coords.latitude+","+loc.coords.longitude+"&zoom=17&size=400x400&markers=color:blue|"+loc.coords.latitude+","+loc.coords.longitude+"&sensor=true' />")
 		$("#lat").val(loc.coords.latitude);
 		$("#lng").val(loc.coords.longitude);
+		$("#map").toggleClass("map");
+		loadMap(loc.coords.latitude, loc.coords.longitude);
+		$("#maptip").html("Location not quite right? Drag the marker to change.");
 		$('#submit').removeAttr("disabled");
 	}
 	
@@ -131,6 +154,8 @@ echo "</ul>";
 <input value="" name="phone" id="form_phone" size="15" class="text" type="text" />
 
 <div id="locator"></div>
+<div id="map"></div>
+<span id="maptip"></span>
 <p id="problem_submit"><input name="submit_problem" value="Submit" type="submit" id="submit" /></p>
 </form>
 </div>

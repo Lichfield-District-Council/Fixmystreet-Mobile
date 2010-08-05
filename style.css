@@ -108,3 +108,17 @@
 		color: #111;
 		text-decoration: none;
 		}
+	
+	#map.map {
+		width: 90%; 
+		height: 200px; 
+		margin: 10px 7px;
+		}
+		
+	#maptip {
+		position: relative;
+		left: 7px;
+		font-style: italic;
+		color: #111;
+		font-size: 0.9em;
+		}
