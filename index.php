@@ -42,24 +42,37 @@ if ($_POST) {
 	<script src="js/geo.js"></script> 
 	<script src="js/jquery.js"></script> 
 	<script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
-	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAyUvSDBrAO4ePxVHcqp-K5hQ5esWtNpQWehF-Z9NQeJEFHAWuORRop2dJC86rRc7w8ebZJ0ODn4_-bQ" type="text/javascript"></script>
-	<script src="http://www.google.com/uds/api?file=uds.js&amp;v=1.0&amp;source=uds-msw&amp;key=ABQIAAAAyUvSDBrAO4ePxVHcqp-K5hQ5esWtNpQWehF-Z9NQeJEFHAWuORRop2dJC86rRc7w8ebZJ0ODn4_-bQ" type="text/javascript"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
 	<script>
 	
 	function loadMap(lat, lng) {
-	  if (GBrowserIsCompatible()) {
-        map = new GMap2(document.getElementById("map")); 
-        map.setCenter(new GLatLng(lat, lng), 17);
-        map.addControl(new GLargeMapControl());
-        var location = new GLatLng(lat, lng);
-        var marker = new GMarker(location, {draggable: true});
-        map.addOverlay(marker);
-        GEvent.addListener(marker, 'dragend', function(point) { 
-        	$("#lat").val(point.lat());
-			$("#lng").val(point.lng());
-        });
-      }		
+		var latlng = new google.maps.LatLng(lat, lng);
+	    var myOptions = {
+	      zoom: 17,
+	      center: latlng,
+	      mapTypeControl: false,
+	      navigationControl: true,
+		  navigationControlOptions: {
+		    style: google.maps.NavigationControlStyle.ANDROID
+		  },
+    	  mapTypeId: google.maps.MapTypeId.ROADMAP
+	    };
+	    var map = new google.maps.Map(document.getElementById("map"), myOptions);
+	  	
+	  	var marker = new google.maps.Marker({
+	  		position: latlng,
+	  		draggable: true
+	  	});
+	  	
+	  	marker.setMap(map); 
+	  	
+	  	google.maps.event.addListener(marker, 'dragend', function(point) { 
+        	$("#lat").val(point.latLng.b);
+			$("#lng").val(point.latLng.c);
+        });	
+        
+        $("#maptip").html("Location not quite right? Drag the marker to change.");
 	}
 	
 	function lookupLocation() {
@@ -77,7 +90,6 @@ if ($_POST) {
 		$("#lng").val(loc.coords.longitude);
 		$("#map").toggleClass("map");
 		loadMap(loc.coords.latitude, loc.coords.longitude);
-		$("#maptip").html("Location not quite right? Drag the marker to change.");
 		$('#submit').removeAttr("disabled");
 	}
 	
@@ -130,9 +142,6 @@ echo "</ul>";
 
 <div id="fail"></div>
 
-<input name="lat" id="lat" value="" type="hidden" />
-<input name="lng" id="lng" value="" type="hidden" />
-
 <p><label for="form_title">Subject: <em>(Required)</em></label><br />
 <input value="" name="title" id="form_title" size="30" class="text required" type="text" /></p>
 
@@ -156,6 +165,8 @@ echo "</ul>";
 <div id="locator"></div>
 <div id="map"></div>
 <span id="maptip"></span>
+<input name="lat" id="lat" value="" type="text" />
+<input name="lng" id="lng" value="" type="text" />
 <p id="problem_submit"><input name="submit_problem" value="Submit" type="submit" id="submit" /></p>
 </form>
 </div>
