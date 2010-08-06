@@ -165,8 +165,8 @@ echo "</ul>";
 <div id="locator"></div>
 <div id="map"></div>
 <span id="maptip"></span>
-<input name="lat" id="lat" value="" type="text" />
-<input name="lng" id="lng" value="" type="text" />
+<input name="lat" id="lat" value="" type="hidden" />
+<input name="lng" id="lng" value="" type="hidden" />
 <p id="problem_submit"><input name="submit_problem" value="Submit" type="submit" id="submit" /></p>
 </form>
 </div>
